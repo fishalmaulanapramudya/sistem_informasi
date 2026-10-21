@@ -1,0 +1,262 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+
+:root {
+    --primary-color: #b83b37;
+    --secondary-color: #ffffff;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: linear-gradient(90deg, #e2e2e2, #c9c6ff);
+}
+
+.login-container {
+    position: relative;
+    width: 850px;
+    height: 550px;
+    background: var(--primary-color);
+    border-radius: 30px;
+    box-shadow: 0 0 20px rgb(136, 136, 136);
+    overflow: hidden;
+    margin: 20px;
+}
+.login-container h1{
+    font-size: 36px;
+    margin: -10px 0;
+}
+
+.login-card{
+    position: absolute;
+    right: 0;
+    width: 50%;
+    height: 100%;
+    background: var(--primary-color);
+    display: flex;
+    align-items: center;
+    color: var(--secondary-color);
+    text-align: center;
+    z-index: 1;
+    transition: .6s ease-in-out 1.2s, visibility 0s 1s;
+}
+
+.login-container.active .login-card{
+    right: 50%;
+}
+
+form{
+    width: 100%;
+}
+
+.input-group{
+    position: relative;
+    margin: 30px 0;
+}
+
+.input-group input{
+  width: 90%;
+  padding: 13px;
+  background: none;
+  border: none;
+  outline: none;
+  font-size: 16px;
+  color: var(--secondary-color);
+  font-weight: 500;
+  border-bottom: solid 2px var(--secondary-color);
+}
+
+.input-group input::placeholder{
+    color: var(--secondary-color);
+    font-weight: 400;
+}
+
+.btn-login {
+    width: 90%;
+    height: 48px;
+    border: none;
+    outline: none;
+    background: none;
+    color: var(--secondary-color);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.login-card.register{
+    visibility: hidden;
+}
+
+.login-container.active .login-card.register{
+    visibility: visible;
+}
+
+.toggle-box {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.toggle-box::before{
+    content: '';
+    position: absolute;
+    left: -250%;
+    width: 300%;
+    height: 100%;
+    background: var(--secondary-color);
+    border-radius: 150px;
+    z-index: 1;
+    pointer-events: none;
+    transition: 1.8s ease-in-out;
+}
+
+.login-container.active .toggle-box::before{
+    left: 50%;
+}
+
+.toggle-panel{
+    position: absolute;
+    width: 50%;
+    height: 100%;
+    /*background: var(--secondary-color);*/
+    color: var(--primary-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 3;
+    border-radius: 150px;
+    pointer-events: auto;
+    transition: .6s ease-in-out;
+}
+
+.toggle-panel.toggle-left{
+    left: 0;
+    transition-delay: 1.2s;
+}
+
+.login-container.active .toggle-panel.toggle-left{
+    left: -50%;
+    transition-delay: .6s;
+}
+
+.toggle-panel.toggle-right{
+    right: -50%;
+    transition-delay: .6s;
+}
+
+.login-container.active .toggle-panel.toggle-right{
+    right: 0;
+    transition-delay: 1.2s;
+}
+
+.btn-register{
+    position: relative;
+    z-index: 4;
+    border-radius: 10px;
+    border: none;
+    outline: solid var(--primary-color) 3px;
+    background: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    height: 30px;
+    width: 30%;
+}
+
+.btn-login.kanan{
+    position: relative;
+    z-index: 4;
+    border-radius: 10px;
+    border: none;
+    outline: solid var(--primary-color) 3px;
+    background: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    height: 30px;
+    width: 30%;
+}
+
+.toggle-panel p{
+    margin-bottom: 20px;
+}
+
+@media screen and (max-width: 650px) {
+
+    .login-container{
+        height: calc(100vh - 40px);
+    }
+
+    .login-card{
+        bottom: 0;
+        width: 100%;
+        height: 70%;
+    }
+
+    .login-container.active .login-card{
+        right: 0;
+        bottom: 30%;
+    }
+
+    .toggle-box::before{
+        left: 0;
+        top: -270%;
+        width: 100%;
+        height: 300%;
+        border-radius: 20vw;
+    }
+
+    .login-container.active .toggle-box::before{
+        left: 0;
+        top: 70%;
+    }
+
+    .toggle-panel{
+        border-radius: 0px;
+        width: 100%;
+        height: 30%;
+    }
+
+    .toggle-panel.toggle-left{
+        top: 0;
+    }
+
+    .login-container.active .toggle-panel.toggle-left{
+        left: 0;
+        top: -30%;
+    }
+
+    .toggle-panel.toggle-right{
+        right: 0;
+        bottom: -30%;
+    }
+
+    .login-container.active .toggle-panel.toggle-right{
+        bottom: 0;
+    }
+}
+
+
+@media screen and (max-width: 400px) {
+    .login-card{
+        padding: 20px;
+    }
+
+    .toggle-panel h1{
+        font-size: 30px;
+    }
+}
+
+.dashboard-page h1{
+    color: red;
+}

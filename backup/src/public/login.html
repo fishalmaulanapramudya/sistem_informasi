@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../css/login.css">
+</head>
+<body>
+<div class="login-container">
+    <div class="login-card">
+        <form action="#" method="post" class="login-form">
+            <h1>LOGIN</h1>
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="username" required>
+            </div>
+          
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </div>
+          
+            <button type="submit" class="btn-login">LOGIN</button>
+        </form>
+
+    </div>
+
+    <div class="login-card register">
+        <form action="#" method="post" class="login-form register">
+            <h1>REGISTRATION</h1>
+            <div class="input-group">
+                <input type="text" id="username" name="username" placeholder="username" required>
+            </div>
+
+              <div class="input-group">
+                <input type="email" id="email" name="email" placeholder="e-mail" required>
+            </div>
+          
+            <div class="input-group">
+                <input type="password" id="password" name="password" placeholder="password" required>
+            </div>
+          
+            <button type="submit" class="btn-login register">REGISTER</button>
+        </form> 
+
+    </div>
+
+    <div class="toggle-box">
+        <div class="toggle-panel toggle-left">
+            <h1>Hallo, Welcome!</h1>
+            <p><i> Belum punya akun? </i></p>
+            <button class="btn-register">Register</button>
+        </div>
+        <div class="toggle-panel toggle-right">
+            <h1>Welcome Back!</h1>
+            <p><i> Sudah punya akun? </i></p>
+            <button class="btn-login kanan">Login</button>
+        </div>
+    </div>
+</div>
+<script src="../js/login.js"></script>
+</body>
+</html>

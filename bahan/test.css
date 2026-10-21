@@ -1,0 +1,122 @@
+/*body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}*/
+
+/*body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}*/
+
+/*body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}*/
+
+/*body {
+    min-height: 100vh;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}*/
+
+/*body {
+    min-height: 100vh;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+*/
+
+/*body {
+    min-height: 100vh;
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+
+}
+*/
+
+body {
+    min-height: 100vh;
+    display: flex;
+    gap: 20px;
+    
+
+}
+
+/*.box {
+    height: 200px;
+    width: 200px;
+    background-color: lightgray;
+    margin: 10px;
+    font-size: 40pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    */
+
+/*    .box {
+    height: 200px;
+    width: 200px;
+    background-color: lightgray;
+    flex-shrink: 0;
+    margin: 10px;
+    font-size: 40pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    */
+
+/*.box {
+    height: 200px;
+    width: 200px;
+    background-color: lightgray;
+    flex-shrink: 1;
+    margin: 10px;
+    font-size: 40pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+    */
+/*.box {
+    height: 200px;
+    width: 200px;
+    background-color: lightgray;
+    flex-grow: 1;
+    margin: 10px;
+    font-size: 40pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+*/
+
+.box {
+    height: 200px;
+    width: 200px;
+    background-color: lightgray;
+    flex-grow: 0;
+    margin: 10px;
+    font-size: 40pt;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
