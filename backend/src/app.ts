@@ -16,10 +16,18 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
+app.get("/api/health", (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Backend LMS berjalan.",
+        environment: env.NODE_ENV,
+    });
+});
+
 app.get("/api/healts", (req, res) => {
     res.status(200).json({
-        succes: true,
-        message: "Backend LMS brjalan.",
+        success: true,
+        message: "Backend LMS berjalan.",
         environment: env.NODE_ENV,
     });
 });

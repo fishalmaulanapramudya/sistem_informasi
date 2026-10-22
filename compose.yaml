@@ -1,0 +1,55 @@
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
+    environment:
+      VITE_API_URL: http://localhost:3000
+    depends_on:
+      - backend
+
+  backend:
+    build:
+      context: ./backend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./backend:/app
+      - /app/node_modules
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DB_HOST: database
+      DB_PORT: 5432
+      DB_NAME: sistem_informasi_db
+      DB_USER: fishal_admin
+      DB_PASSWORD: Qqf577nk99@123
+      DATABASE_URL: postgresql://fishal_admin:Qqf577nk99@123@database:5432/sistem_informasi_db
+      JWT_SECRET: dev-secret-change-me
+      FRONTEND_URL: http://localhost:5173
+    depends_on:
+      database:
+        condition: service_healthy
+
+  database:
+    image: postgres:18
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: sistem_informasi_db
+      POSTGRES_USER: fishal_admin
+      POSTGRES_PASSWORD: Qqf577nk99@123
+    volumes:
+      - postgres_data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U fishal_admin -d sistem_informasi_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  postgres_data:
