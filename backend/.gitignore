@@ -1,3 +1,4 @@
 .env
-
+dockerfile
 node_modules
+.gitignore

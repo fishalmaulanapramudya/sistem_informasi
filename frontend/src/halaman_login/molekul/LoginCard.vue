@@ -24,21 +24,29 @@ const handleLogin = async () => {
     errorMessage.value = '';
 
     try {
-        const response = await fetch(`${apiBaseUrl}/api/health`, {
-            method: 'GET',
+        const response = await fetch(`${apiBaseUrl}/api/auth/login`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             credentials: 'include',
+            body: JSON.stringify({
+                username: trimmedUsername,
+                password: trimmedPassword,
+            }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-            throw new Error('Backend tidak merespons dengan baik.');
+            throw new Error(data.message ?? 'Login gagal.');
         }
 
-        const data = await response.json();
-        console.log('Backend response:', data);
+        localStorage.setItem('token', data.token);
         router.push('/dashboard');
     } catch (error) {
         console.error('Login connection error:', error);
-        errorMessage.value = 'Tidak bisa terhubung ke backend. Periksa server dan koneksi API.';
+        errorMessage.value = error instanceof Error ? error.message : 'Tidak bisa terhubung ke backend. Periksa server dan koneksi API.';
     }
 };
 </script>

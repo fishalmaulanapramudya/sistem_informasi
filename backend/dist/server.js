@@ -10,8 +10,8 @@ async function startServer() {
     try {
         await (0, postgres_1.checkdatabaseConnection)();
         console.log("Koneksi PostgreSQl berhasil");
-        app_1.default.listen(env_1.env.PORT, () => {
-            console.log('BACKEND LMS berjalan di http://localhost:${env.PORT}');
+        app_1.default.listen(env_1.env.PORT, "0.0.0.0", () => {
+            console.log('BACKEND LMS berjalan di http://localhost:' + env_1.env.PORT);
         });
     }
     catch (error) {
@@ -20,4 +20,4 @@ async function startServer() {
         process.exitCode = 1;
     }
 }
-void startServer;
+void startServer();

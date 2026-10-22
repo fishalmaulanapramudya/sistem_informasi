@@ -14,5 +14,5 @@ exports.postgresPool.on("error", (error) => {
     console.error("Unexpected PostgreSQL pool error:", error);
 });
 async function checkdatabaseConnection() {
-    await exports.postgresPool.query("SELECT 1");
+    await exports.postgresPool.query("SELECT 1;");
 }
