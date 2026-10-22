@@ -16,7 +16,7 @@ app.use(
 app.use(express.json());
 app.use(cookieParser());
 
-app.get("/api/healt", (req, res) => {
+app.get("/api/healts", (req, res) => {
     res.status(200).json({
         succes: true,
         message: "Backend LMS brjalan.",
