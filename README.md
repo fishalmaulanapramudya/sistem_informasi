@@ -1,48 +1,18 @@
 # Sistem Informasi Berbasis Web
 
-Sistem informasi berbasis web yang dirancang untuk mendukung pengelolaan data, autentikasi aman, dan akses yang terkontrol dengan pendekatan modern. Proyek ini dikembangkan dengan prinsip Clean Architecture, Zero Trust, dan Decoupled Architecture agar sistem lebih mudah dikembangkan, diuji, dan dipelihara.
+Proyek sistem informasi berbasis web yang terdiri dari frontend Vue dan backend Express, dengan PostgreSQL sebagai database. Struktur aplikasi sudah dipisahkan untuk memudahkan pengembangan, deployment, dan integrasi API.
 
-## Deskripsi Proyek
+## Deskripsi
 
-Proyek ini bertujuan untuk membangun platform sistem informasi yang dapat digunakan untuk mengelola kebutuhan operasional dan bisnis secara terintegrasi. Aplikasi ini dirancang agar:
+Aplikasi ini dibangun untuk mendukung:
 
-- Struktur kode terpisah berdasarkan domain dan tanggung jawab
-- Keamanan tidak bergantung pada satu lapisan saja
-- Frontend dan backend dapat berkembang secara independen
-- Setiap komponen mudah diuji dan dipelihara
+- autentikasi pengguna
+- akses dashboard
+- manajemen data dasar
+- pemisahan frontend dan backend secara independent
+- integrasi API yang lebih terstruktur dan mudah dikembangkan
 
-## Prinsip Arsitektur
-
-### 1. Clean Architecture
-
-Arsitektur dibangun dengan pemisahan yang jelas antara:
-
-- Presentation Layer
-- Application Layer
-- Domain Layer
-- Infrastructure Layer
-
-Tujuannya agar bisnis logic tidak terikat pada framework atau teknologi tertentu. Perubahan pada UI atau database tidak akan mengganggu inti aplikasi.
-
-### 2. Zero Trust
-
-Semua request dianggap tidak aman sebelum diverifikasi. Konsep ini diterapkan melalui:
-
-- Autentikasi dan otorisasi yang jelas
-- Validasi token atau session pada setiap request
-- Pembatasan akses berdasarkan role dan permission
-- Penggunaan HTTPS, cookies aman, dan konfigurasi keamanan yang ketat
-
-### 3. Decoupled Architecture
-
-Frontend dan backend dipisahkan secara jelas agar:
-
-- UI dapat dikembangkan tanpa mengganggu service backend
-- API dapat digunakan oleh berbagai client
-- Skalabilitas sistem meningkat
-- Integrasi ke layanan lain menjadi lebih mudah
-
-## Teknologi yang Digunakan
+## Stack Teknologi
 
 ### Frontend
 - Vue 3
@@ -58,61 +28,81 @@ Frontend dan backend dipisahkan secara jelas agar:
 - JWT
 - bcrypt
 
+### Infra & Dev
+- Docker Compose
+- PostgreSQL container
+
 ## Struktur Proyek
 
 ```bash
-project-akhir-lms/
+sistem_informasi/
 ├── backend/
 │   ├── src/
 │   ├── package.json
-│   └── tsconfig.json
+│   ├── tsconfig.json
+│   └── dockerfile
 ├── frontend/
 │   ├── src/
-│   ├── public/
 │   ├── package.json
-│   └── vite.config.ts
+│   ├── vite.config.ts
+│   └── dockerfile
+├── compose.yaml
 ├── README.md
 ├── generate_jwt_secret.py
-└── backup/
+├── backup/
+└── bahan/
 ```
 
-## Fitur Utama
+## Integrasi Frontend dan Backend
 
-- Login dan autentikasi pengguna
-- Role-based access control
-- Dashboard sistem informasi
-- Manajemen data pengguna
-- Pemisahan frontend dan backend
-- API yang aman dan terdokumentasi dengan jelas
-- Struktur kode yang modular dan mudah dikembangkan
+Frontend sudah dikonfigurasi untuk memanggil backend melalui `fetch` dengan base URL:
 
-## Alur Keamanan (Zero Trust)
+```env
+VITE_API_URL=http://localhost:3000
+```
 
-1. Pengguna melakukan login
-2. Sistem memvalidasi kredensial pengguna
-3. Token atau session dibuat secara aman
-4. Setiap request memeriksa otorisasi user
-5. Akses dibatasi sesuai role/permission
-6. Data sensitif tidak dibagikan tanpa validasi lanjutan
-
-## Cara Menjalankan Proyek
-
-### 1. Clone repository
+Backend menyediakan endpoint health untuk pengecekan koneksi:
 
 ```bash
-git clone <url-repository>
-cd project-akhir-lms
+http://localhost:3000/api/health
 ```
 
-### 2. Menjalankan frontend
+Respons yang berhasil:
+
+```json
+{
+  "success": true,
+  "message": "Backend LMS berjalan.",
+  "environment": "development"
+}
+```
+
+## Menjalankan Aplikasi
+
+### Opsi 1: Pakai Docker Compose (direkomendasikan)
+
+```bash
+cd /home/fishal/project/sistem_informasi
+docker compose up --build -d
+```
+
+Akses:
+
+- Frontend: http://localhost:5173
+- Backend: http://localhost:3000
+- PostgreSQL: localhost:5433
+
+### Opsi 2: Jalankan lokal tanpa Docker
+
+#### Frontend
 
 ```bash
 cd frontend
 npm install
-npm run dev
+npm run dev -- --host 0.0.0.0
 ```
 
-### 3. Menjalankan backend
+#### Backend
 
 ```bash
 cd backend
@@ -120,49 +110,44 @@ npm install
 npm run dev
 ```
 
-### 4. Build proyek
-
-```bash
-cd frontend
-npm run build
-
-cd ../backend
-npm run build
-```
-
 ## Environment Variables
 
-Backend memerlukan konfigurasi environment seperti:
+Backend menggunakan variabel berikut secara default bila tidak didefinisikan:
 
 ```env
+NODE_ENV=development
 PORT=3000
-JWT_SECRET=your_secret_key
 DB_HOST=localhost
 DB_PORT=5432
+DB_NAME=postgres
 DB_USER=postgres
-DB_PASSWORD=your_password
-DB_NAME=your_database
+DB_PASSWORD=postgres
+JWT_SECRET=dev-secret-change-me
+FRONTEND_URL=http://localhost:5173
 ```
 
-## Roadmap Pengembangan
+Pada konfigurasi Docker, variabel tersebut sudah diisi untuk service database dan backend.
 
-- [ ] Setup base project dan struktur folder
-- [ ] Implementasi autentikasi aman
-- [ ] Penerapan role dan permission
-- [ ] Integrasi database PostgreSQL
-- [ ] Pengembangan dashboard admin
-- [ ] Validasi akses Zero Trust
-- [ ] Testing API dan frontend
-- [ ] Deployment dan monitoring
+## Catatan Perangkat
+
+Saat menjalankan Docker, port 3000 harus bebas. Jika port tersebut masih dipakai oleh proses lain, maka `docker compose up` akan gagal. Solusi yang umum:
+
+```bash
+sudo lsof -i :3000
+kill <PID>
+```
+
+## Roadmap
+
+- [x] Setup frontend dan backend
+- [x] Integrasi API dasar
+- [x] Setup Docker Compose
+- [ ] Autentikasi login dengan JWT
+- [ ] CRUD data pengguna
+- [ ] Role-based access control
+- [ ] Dashboard admin dan user
+- [ ] Deployment production
 
 ## Catatan Pengembangan
 
-Proyek ini dibuat dengan fokus pada kualitas arsitektur, keamanan, dan skalabilitas. Ke depannya, aplikasi ini diharapkan dapat berkembang menjadi sistem informasi yang terstruktur, aman, dan siap digunakan dalam lingkungan nyata.
-
-## Kontribusi
-
-Kontribusi sangat terbuka untuk pengembangan lebih lanjut. Silakan buat branch baru, lakukan perubahan, lalu ajukan pull request dengan penjelasan yang jelas.
-
-## Lisensi
-
-Proyek ini menggunakan lisensi yang dapat disesuaikan dengan kebutuhan tim atau organisasi.
+Proyek ini dibuat dengan prinsip modular dan decoupled architecture agar frontend dan backend bisa berkembang secara terpisah, tetap terhubung melalui API, dan lebih mudah dipelihara di masa depan.
